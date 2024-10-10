@@ -1,5 +1,7 @@
 package br.com.otavioluism.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -36,6 +38,17 @@ public class PrimeiroController {
     @PostMapping("/metodoComQueryHeader2") // anotation responsável para criar o tipo de http params para tal rota
     public String metodoComQueryHeader(@RequestHeader Map<String, String> allHeaders) {
         return "O retorno do query header é = " + allHeaders.entrySet(); // vem no formato de uma lista, caso nao colocar vem no formato objeto
+    }
+
+    @GetMapping("/metodoComResponseEntity/{identification}")
+    public ResponseEntity<Object> metodoComResponseEntity(@PathVariable("identification") Integer id) {
+        var usuario = new Usuario("otavioluism"); // estamos criando um objeto do tipo Usuario com atributo {username: "valor"} por meio da classe record
+
+        if (id > 5) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mensagem com problema!");
     }
 
     record Usuario(String username) {} // record criamos uma classe que não existe getter e setter
