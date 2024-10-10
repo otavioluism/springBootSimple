@@ -23,5 +23,11 @@ public class PrimeiroController {
         return "O retorno do query param é = " + allParam;
     }
 
+    @PostMapping("/metodoComQueryBody") // anotation responsável para criar o tipo de http params para tal rota
+    public String metodoComQueryBody(@RequestBody Usuario usuario) {
+        return "O retorno do query body é = " + usuario.username(); // deve ser o mesmo nome do parametro
+    }
+
+    record Usuario(String username) {} // record criamos uma classe que não existe getter e setter
 
 }
