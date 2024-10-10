@@ -28,6 +28,16 @@ public class PrimeiroController {
         return "O retorno do query body é = " + usuario.username(); // deve ser o mesmo nome do parametro
     }
 
+    @PostMapping("/metodoComQueryHeader") // anotation responsável para criar o tipo de http params para tal rota
+    public String metodoComQueryHeader(@RequestHeader("name") String name) {
+        return "O retorno do query header é = " + name;
+    }
+
+    @PostMapping("/metodoComQueryHeader2") // anotation responsável para criar o tipo de http params para tal rota
+    public String metodoComQueryHeader(@RequestHeader Map<String, String> allHeaders) {
+        return "O retorno do query header é = " + allHeaders.entrySet(); // vem no formato de uma lista, caso nao colocar vem no formato objeto
+    }
+
     record Usuario(String username) {} // record criamos uma classe que não existe getter e setter
 
 }
